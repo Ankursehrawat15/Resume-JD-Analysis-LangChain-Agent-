@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "resume-agent"
+version = "0.1.0"
+description = "Local LangChain Resume–JD Match Agent"
+requires-python = ">=3.11"
+dependencies = [
+  "langchain>=0.3",
+  "langchain-ollama>=0.2",
+  "langchain-community>=0.3",
+  "langgraph>=0.2",
+  "pydantic>=2",
+  "pypdf>=4",
+  "python-dotenv>=1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+resume-agent = "resume_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

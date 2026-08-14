@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Env / secrets
+.env
+*.pem
+AboutProjectV1.txt
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Outputs
+outputs/
+*.json
+
+
+# Ollama / local junk (if any)
+*.log
