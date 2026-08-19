@@ -1,17 +1,16 @@
-form enum import Enum 
-from pydanctic import BaseModel, field
+from enum import Enum
+from pydantic import BaseModel, Field
 
 
-
-class verdict(str, Enum):
+class Verdict(str, Enum):
     strong = "strong"
     borderline = "borderline"
     weak = "weak"
 
-class JobRequirement(BaseModel):
 
+class JobRequirements(BaseModel):
     role: str = Field(description="Job title / role name")
-    seniority: str = Field(description="eg. junior, mid, senior,staff")
+    seniority: str = Field(description="e.g. junior, mid, senior, staff")
     must_have_skills: list[str] = Field(
         default_factory=list,
         description="Required skills explicitly stated in the JD",
@@ -22,36 +21,31 @@ class JobRequirement(BaseModel):
     )
     notes: str = Field(
         default="",
-        description="Other Important requirements not captured as skills"
+        description="Other important requirements not captured as skills",
     )
 
-    # what is default facotry for ? diff between default and default facotry 
-    # what does None does in python ?
 
-    class ResumeDocument(BaseModel):
-        # raw text from resume
-        raw_text: str = Field(description="Full extracted resume text")
-        source_path: str = Field(description="Path to the source file")
-        page_count: int | None = Field(
-            default = None,
-            description="PDF page count if know; None for .txt",
-        )
-    
-    class MatchAnalysis(BaseModel):
+class ResumeDocument(BaseModel):
+    raw_text: str = Field(description="Full extracted resume text")
+    source_path: str = Field(description="Path to the source file")
+    page_count: int | None = Field(
+        default=None,
+        description="PDF page count if known; None for .txt",
+    )
 
-        match_score: int = Field(
-            ge=0,
-            le=100,
-            description="Overall match score from 0 to 100",
-        )
 
-        matched_skills: list[str] = Field(default_factory=list)
-        missing_skills: list[str] = Field(default_factory=list)
-        strenths: list[str] = Field(default_factory=list)
-        gaps: list[str] = Field(default_factory=list)
-        verdict: Verdict = Field(description="strong | borderline | weak")
-        evidence: list[str] = Field(
-            default_factory=list,
-            description="Short quotes from the resume that supports the analysis"
-            
-        )
+class MatchAnalysis(BaseModel):
+    match_score: int = Field(
+        ge=0,
+        le=100,
+        description="Overall match score from 0 to 100",
+    )
+    matched_skills: list[str] = Field(default_factory=list)
+    missing_skills: list[str] = Field(default_factory=list)
+    strengths: list[str] = Field(default_factory=list)
+    gaps: list[str] = Field(default_factory=list)
+    verdict: Verdict = Field(description="strong | borderline | weak")
+    evidence: list[str] = Field(
+        default_factory=list,
+        description="Short quotes from the resume that support the analysis",
+    )
