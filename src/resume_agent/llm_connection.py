@@ -1,12 +1,9 @@
 from langchain_ollama import ChatOllama
 from resume_agent.config import LLM_MODEL
 
-def smoke_chat():
-    llm = ChatOllama(
+def get_llm() -> ChatOllama:
+    return ChatOllama(
         model=LLM_MODEL,
-        temperature=0.0,
+        temprature=0.0,
     )
-    
-    response = llm.invoke("Reply with exactly: Hi I am llama model")
-    return response.content
 

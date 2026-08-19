@@ -1,0 +1,39 @@
+Role:
+The AI Engineer is responsible for designing, developing, and operationalizing enterprise-grade AI and Generative AI solutions that deliver measurable business value while ensuring scalability, security, governance, and regulatory compliance.
+Key Responsibilities
+- Design, develop, and deploy AI/ML, Generative AI, and Agentic AI solutions to solve complex business problems and improve operational efficiency.
+- Build and maintain Large Language Model (LLM) applications, Retrieval-Augmented Generation (RAG) pipelines, intelligent agents, and multimodal AI solutions from prototype through production deployment.
+- Design AI agent architectures, orchestration frameworks, and inter-agent communication protocols to automate business and technology workflows.
+- Develop scalable backend services, API layers, and supporting technical components required to operationalize AI solutions.
+- Collaborate with business stakeholders, product owners, and domain experts to identify high-impact AI opportunities and translate business requirements into technical solutions.
+- Build and maintain cloud-native AI/ML pipelines, model deployment frameworks, and data integration workflows using modern AI platforms and cloud technologies.
+- Implement MLOps and LLMOps practices to support deployment, monitoring, quality assurance, reproducibility, and lifecycle management of AI solutions.
+- Evaluate emerging AI technologies, frameworks, and tools through proofs of concept and rapid prototyping.
+- Ensure all AI solutions adhere to Mastercards security, privacy, responsible AI, and governance standards.
+- Implement Responsible AI controls including bias monitoring, hallucination mitigation, explainability, model validation, and AI safety guardrails.
+- Partner across analytics, engineering, product, and business teams to identify AI integration opportunities and drive enterprise adoption of AI capabilities.
+- Communicate technical concepts, solution designs, and business value effectively to both technical and non-technical audiences.
+All About You:
+- Bachelors or Masters degree in Computer Science, Artificial Intelligence, Machine Learning, Engineering, Data Science, or a related technical field.
+- Experience in designing, developing, and deploying AI, Generative AI, or machine learning solutions in production environments.
+- Hands-on experience building LLM applications, Agentic AI systems, and RAG architectures from concept through deployment.
+- Strong expertise with GenAI ecosystems and frameworks such as OpenAI, Azure OpenAI, Gemini, Hugging Face, LangChain, LangGraph, and open-source foundation models.
+- Deep understanding of prompt engineering, vector embeddings, semantic search, agent orchestration, reasoning frameworks, and AI application architecture.
+- Strong Python programming skills with experience developing APIs, microservices, and production-ready AI applications.
+- Experience with SQL and large-scale data processing technologies including Spark and modern cloud data platforms.
+- Experience working with Azure, AWS, Databricks, Microsoft Fabric, or other cloud-based AI and data platforms.
+- Knowledge of MLOps, LLMOps, CI/CD pipelines, model deployment, monitoring, and version control practices.
+- Familiarity with APIs, data pipelines, cloud integrations, and enterprise application development.
+- Understanding of machine learning fundamentals, predictive modeling, deep learning frameworks (TensorFlow, PyTorch), and statistical techniques.
+- Experience implementing Responsible AI practices, model governance, explainability, fairness, and AI risk management frameworks.
+- Strong analytical, problem-solving, and critical-thinking capabilities.
+- Excellent communication and stakeholder management skills, with the ability to translate complex AI concepts into business value.
+- Ability to manage multiple priorities, work independently, and thrive in a fast-paced and evolving technology environment.
+- Financial services, fintech, payments, pricing, or analytics experience is highly desirable.
+- Passion for innovation, emerging technologies, and continuous learning in the rapidly evolving AI landscape.
+Corporate Security Responsibility
+- All activities involving access to Mastercard assets, information, and networks comes with an inherent risk to the organization and, therefore, it is expected that every person working for, or on behalf of, Mastercard is responsible for information security and must.
+- Abide by Mastercard s security policies and practices.
+- Ensure the confidentiality and integrity of the information being accessed.
+- Report any suspected information security violation or breach, and
+- Complete all periodic mandatory security trainings in accordance with Mastercard s guidelines.

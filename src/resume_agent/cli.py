@@ -2,6 +2,7 @@ import argparse
 import sys
 
 from resume_agent.loaders import load_jd_text, InputError, load_resume
+from resume_agent.jd_extractor import extract_jd
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -33,8 +34,10 @@ def main(argv: list[str] | None = None) -> None:
     if args.out:
         print(f"Output path (not used yet): {args.out}")
     if args.debug:
-        print("--- JD preview ---")
-        print(jd_text[:200])
-        print("--- Resume preview ---")
-        print(resume_text[:200])    
+        print("--- Extracted Job Requirements ---")
+        requirement = extract_jd(jd_text)
+        print(requirement.model_dump_json(indent=2))
+        # print(jd_text[:200])
+        # print("--- Resume preview ---")
+        # print(resume_text[:200])    
 
