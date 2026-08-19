@@ -19,7 +19,7 @@ def load_jd_text(path: str | Path) -> str:
     return text        
 
 
-def load_resume(path: Path | Path) -> str:
+def load_resume(path: str | Path) -> str:
     p = Path(path)
     if not p.exists():
         raise InputError(f"Resume file not found: {p}")
