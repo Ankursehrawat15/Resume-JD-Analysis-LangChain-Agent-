@@ -18,10 +18,13 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+web = ["streamlit>=1.40"]
 dev = ["pytest"]
+
 
 [project.scripts]
 resume-agent = "resume_agent.cli:main"
+resume-agent-web = "streamlit.web.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
