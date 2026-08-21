@@ -11,7 +11,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     parser.add_argument("--jd", required=True, help="Path to job description (.txt)")
-    parser.add_argument("--resume", required=True, help="Path to resume  (.txt)")
+    parser.add_argument("--resume", required=True, help="Path to resume  (.Pdf)")
     parser.add_argument("--out", required=False, help="Optional path to save JSON result")
     parser.add_argument("--debug", action="store_true", help="Print Extra debug info (used more in later sections)")
 
