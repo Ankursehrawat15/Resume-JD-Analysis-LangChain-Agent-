@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Documentation for the local Resume–JD Match Agent.">
+  <title>RoleFit AI· Documentation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark">⌁</span>
+        <div><strong>RoleFit AI</strong><small>Match Agent</small></div>
+      </div>
+      <div class="sidebar-label">Documentation</div>
+      <nav class="nav" aria-label="Documentation sections">
+        <a class="nav-link active" href="#overview">Overview</a>
+        <a class="nav-link" href="#pipeline">Pipeline</a>
+        <a class="nav-link" href="#interfaces">Interfaces</a>
+        <a class="nav-link" href="#contracts">Contracts</a>
+        <a class="nav-link" href="#operations">Operations</a>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        <span>Local-first · v0.1.0</span>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Open navigation">☰</button>
+        <div class="crumb">Project documentation <span>/</span> v0.1.0</div>
+        <div class="top-actions">
+          <button class="icon-button" id="themeButton" aria-label="Toggle color theme">◐</button>
+          <span class="source-link">Static docs</span>
+        </div>
+      </header>
+
+      <section class="hero" id="overview">
+        <p class="eyebrow">Local LangChain pipeline</p>
+        <h1>Turn a job description into a clearer hiring signal.</h1>
+        <p class="hero-copy">A focused, inspectable agent that compares a job description with a resume PDF—without sending candidate data to a cloud API.</p>
+        <div class="hero-tags"><span>Python</span><span>Ollama</span><span>LangChain</span><span>Pydantic</span><span>Streamlit</span></div>
+      </section>
+
+      <section class="section" id="pipeline">
+        <div class="section-heading"><p class="eyebrow">01 · Architecture</p><h2>Two specialists, one typed handoff.</h2><p>The resume remains evidence text. The job description becomes the structured checklist that the matcher uses.</p></div>
+        <figure class="workflow-figure"><img src="assets/agent-workflow.png" alt="High-level workflow showing CLI or Web UI inputs flowing through job description and resume loading, two LLM specialists, and structured JSON outputs"><figcaption>High-level workflow: both interfaces feed the same loading, extraction, matching, and structured output pipeline.</figcaption></figure>
+        <div class="pipeline">
+          <article class="pipeline-step"><span class="step-number">01</span><div><h3>Load</h3><p>The interface accepts JD text and loads the PDF through <code>load_resume</code>, returning a <code>ResumeDocument</code>.</p></div></article>
+          <article class="pipeline-step"><span class="step-number">02</span><div><h3>Normalize</h3><p><code>extract_jd</code> calls LLM 1 and converts messy JD language into <code>JobRequirements</code>.</p></div></article>
+          <article class="pipeline-step"><span class="step-number">03</span><div><h3>Compare</h3><p><code>MatchAnalysis_llm</code> calls LLM 2 with the structured JD JSON plus raw resume text.</p></div></article>
+          <article class="pipeline-step"><span class="step-number">04</span><div><h3>Present</h3><p>The CLI prints JSON under <code>--debug</code>; the web UI presents metrics, evidence, and a JSON download.</p></div></article>
+        </div>
+        <div class="callout"><strong>Why two calls?</strong><p>Extraction needs faithfulness to the JD. Matching needs comparison and judgment. Separating them makes it possible to inspect whether a bad result came from the checklist or the comparison.</p></div>
+        <div class="split-grid">
+          <div><p class="mini-label">In scope · v1</p><p>Local Ollama · two LLM calls · PDF loading · CLI · optional Streamlit UI</p></div>
+          <div><p class="mini-label">Out of scope · v1</p><p>Cloud APIs · embeddings/RAG · ReAct tool calling · resume LLM extraction</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="interfaces">
+        <div class="section-heading"><p class="eyebrow">02 · Interfaces</p><h2>Choose the interface that you prefer.</h2><p>Both frontends wrap the same core functions. The UI does not fork the pipeline.</p></div>
+        <div class="interface-grid">
+          <article class="interface-card featured"><span class="card-index">A</span><h3>Web UI</h3><p>Paste a JD, upload a PDF, inspect results, and download structured JSON.</p><code>streamlit run web_app.py</code></article>
+          <article class="interface-card"><span class="card-index">B</span><h3>CLI</h3><p>Run repeatable file-based analysis and inspect intermediate output while debugging.</p><code>python -m resume_agent --jd … --resume … --debug</code></article>
+        </div>
+        <h3 class="subheading">Web workflow</h3>
+        <ol class="steps-list"><li>Paste the complete job description.</li><li>Upload a PDF resume.</li><li>Check estimated context size and configured model.</li><li>Choose <strong>Analyze match</strong>.</li><li>Review the result and download JSON.</li></ol>
+        <h3 class="subheading">CLI flags</h3>
+        <div class="table-wrap"><table><thead><tr><th>Flag</th><th>Meaning</th></tr></thead><tbody><tr><td><code>--jd</code></td><td>Path to the job description text file</td></tr><tr><td><code>--resume</code></td><td>Path to a PDF resume</td></tr><tr><td><code>--debug</code></td><td>Run extraction and matching, then print JSON</td></tr><tr><td><code>--out</code></td><td>Reserved for future JSON file output</td></tr></tbody></table></div>
+      </section>
+
+      <section class="section" id="contracts">
+        <div class="section-heading"><p class="eyebrow">03 · Data contracts</p><h2>Schemas make the pipeline composable.</h2><p>Pydantic models are the contract between the specialists, the CLI, the web UI, and any future LangGraph orchestration.</p></div>
+        <div class="contract-list">
+          <article class="contract"><div><code>JobRequirements</code><span>LLM 1 output</span></div><p><strong>role</strong> · <strong>seniority</strong> · <strong>must_have_skills</strong> · <strong>nice_to_have_skills</strong> · <strong>notes</strong></p></article>
+          <article class="contract"><div><code>ResumeDocument</code><span>PDF loader output</span></div><p><strong>raw_text</strong> · <strong>source_path</strong> · <strong>page_count</strong></p></article>
+          <article class="contract"><div><code>MatchAnalysis</code><span>LLM 2 output</span></div><p><strong>match_score</strong> · <strong>matched_skills</strong> · <strong>missing_skills</strong> · <strong>strengths</strong> · <strong>gaps</strong> · <strong>verdict</strong> · <strong>evidence</strong></p></article>
+        </div>
+        <div class="contract-note"><span class="note-mark">i</span><p>Structured output guarantees shape, not truth. Prompt quality, model quality, and deterministic post-checks still matter.</p></div>
+      </section>
+
+      <section class="section" id="operations">
+        <div class="section-heading"><p class="eyebrow">04 · Operations</p><h2>Run it locally. Keep the model close.</h2><p>Ollama provides the local model runtime; the application reads the selected model from <code>.env</code>.</p></div>
+        <div class="code-block"><div class="code-label">Setup</div><pre><code>ollama serve
+ollama pull llama3.1:8b
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e '.[web]'</code></pre></div>
+        <div class="code-block"><div class="code-label">.env</div><pre><code>LLM_MODEL=llama3.1:8b</code></pre></div>
+        <div class="limitations"><div><p class="mini-label">Known limitations</p><ul><li>Multi-column PDFs may have noisy reading order.</li><li>Evidence quotes should be verified against resume text.</li><li>Scores can drift between runs.</li><li>The CLI <code>--out</code> flag is not wired yet.</li></ul></div><div><p class="mini-label">Sensible next upgrades</p><ul><li>Substring verification for evidence.</li><li>Hybrid coverage-based scoring.</li><li>Light PDF cleanup.</li><li>LangGraph orchestration Parallel Execution.</li></ul></div></div>
+      </section>
+
+      <footer class="footer"><span>Resume–JD Match Agent · learning project</span><span>Built with contracts, stages, and inspectable pipelines.</span></footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
