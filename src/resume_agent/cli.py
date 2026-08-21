@@ -1,8 +1,8 @@
 import argparse
 import sys
-
-from resume_agent.loaders import load_jd_text, InputError, load_resume
 from resume_agent.jd_extractor import extract_jd
+from resume_agent.loaders import InputError, load_jd_text, load_resume
+from resume_agent.matcher import MatchAnalysis_llm
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -35,7 +35,9 @@ def main(argv: list[str] | None = None) -> None:
         print(f"Output path (not used yet): {args.out}")
     if args.debug:
         print("--- Extracted Job Requirements ---")
-          requirement = extract_jd(jd_text)
+        requirement = extract_jd(jd_text)
+        analysis = MatchAnalysis_llm(resume_document.raw_text,requirement.model_dump_json(indent=2))
+        print(analysis.model_dump_json(indent=2))
         #  analysis = matcher(requirement.model_dump_json(indent=2), resume_document.raw_text)
         # print(requirement.model_dump_json(indent=2))
         # print(jd_text[:200])
