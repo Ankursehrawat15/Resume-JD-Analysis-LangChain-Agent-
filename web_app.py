@@ -55,6 +55,8 @@ st.markdown(
     .metric { background:#eef1ea; border:1px solid #d8ded8; border-radius:12px; padding:.8rem 1rem; }
     .metric-label { color:#68736e; font:500 .68rem 'DM Mono',monospace; text-transform:uppercase; letter-spacing:.08em; }
     .metric-value { color:#17201d; font-size:1.2rem; font-weight:800; margin-top:.2rem; }
+    .docs-link { display:inline-block; margin-top:1rem; color:#54705b; font:500 .78rem 'DM Mono',monospace; text-decoration:none; border-bottom:1px solid #9eafa3; padding-bottom:.15rem; }
+    .docs-link:hover { color:#17201d; border-color:#17201d; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -68,6 +70,10 @@ st.markdown(
 )
 st.markdown(
     f'<div class="model-chip"><span class="model-dot"></span> ANALYSIS MODEL&nbsp;&nbsp; {LLM_MODEL}</div>',
+    unsafe_allow_html=True,
+)
+st.markdown(
+    '<a class="docs-link" href="https://ankursehrawat15.github.io/Resume-JD-Analysis-LangChain-Agent-/" target="_blank" rel="noopener noreferrer">Read project documentation ↗</a>',
     unsafe_allow_html=True,
 )
 
