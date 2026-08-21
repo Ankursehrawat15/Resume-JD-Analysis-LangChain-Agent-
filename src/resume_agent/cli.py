@@ -23,20 +23,21 @@ def main(argv: list[str] | None = None) -> None:
     
     try:
         jd_text = load_jd_text(args.jd)
-        resume_text = load_resume(args.resume)
+        resume_document = load_resume(args.resume)
     except InputError as exc:
         print(f"Error: {exc}", file=sys.stderr)
         sys.exit(1)
     
 
     print(f"JD loaded: {len(jd_text)} character from {args.jd}")
-    print(f"Resume loaded: {len(resume_text)} character from {args.resume}")
+    print(f"Resume loaded: {len(resume_document.raw_text)} character from {args.resume}")
     if args.out:
         print(f"Output path (not used yet): {args.out}")
     if args.debug:
         print("--- Extracted Job Requirements ---")
-        requirement = extract_jd(jd_text)
-        print(requirement.model_dump_json(indent=2))
+          requirement = extract_jd(jd_text)
+        #  analysis = matcher(requirement.model_dump_json(indent=2), resume_document.raw_text)
+        # print(requirement.model_dump_json(indent=2))
         # print(jd_text[:200])
         # print("--- Resume preview ---")
         # print(resume_text[:200])    

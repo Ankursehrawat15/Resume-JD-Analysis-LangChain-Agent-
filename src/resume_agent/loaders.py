@@ -1,4 +1,6 @@
 from pathlib import Path
+from langchain_community.document_loaders import PyPDFLoader 
+from resume_agent.schemas import ResumeDocument
 
 class InputError(Exception):
     """Bad user input (missing/empty/undreadable file)."""
@@ -19,7 +21,7 @@ def load_jd_text(path: str | Path) -> str:
     return text        
 
 
-def load_resume(path: str | Path) -> str:
+def load_resume(path: str | Path) -> ResumeDocument:
     p = Path(path)
     if not p.exists():
         raise InputError(f"Resume file not found: {p}")
@@ -27,14 +29,23 @@ def load_resume(path: str | Path) -> str:
         raise InputError(f"Resume path is not a file: {p}")
     
     suffix = p.suffix.lower()
-    if suffix == ".txt":
-        text = p.read_text(encoding="utf-8").strip()
-    elif suffix == ".pdf":
-        raise InputError("PDF text extraction is not implemented yet")
+    if suffix == ".pdf":
+        # check cleanUp is requried or not 
+        try:
+            loader = PyPDFLoader(str(p))
+            resume_doc = loader.load()
+        except Exception as exc:
+            raise InputError(f"Could not read resume PDF: {p}")
+        raw = "\n".join(doc.page_content for doc in resume_doc)
+        page_count = len(resume_doc)    
+        
     else:
-        raise InputError(f"Unsupported resume type {suffix}, Use .txt file")
+        raise InputError(f"Unsupported resume type {suffix}, Use .pdf file")
 
-
-    if not text:
+    if not raw:
         raise InputError(f"Resume file is empty: {p}")
-    return text        
+    return ResumeDocument(
+        raw_text=raw,
+        source_path=str(p),
+        page_count=page_count
+    )     

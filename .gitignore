@@ -23,7 +23,7 @@ AboutProjectV1.txt
 # Outputs
 outputs/
 *.json
-
+samples/
 
 # Ollama / local junk (if any)
 *.log
